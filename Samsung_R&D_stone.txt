@@ -1,0 +1,47 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+vector<int>v;
+
+int count(int a[],int cap,int size);
+
+int main(){
+    int stone[]={21,34,12,87};
+    int cap=55;
+    int size=sizeof(stone)/sizeof(stone[0]);
+    int result=count(stone,cap,size);
+    cout<<result<<endl;
+    return 0;
+}
+
+
+int count(int a[],int cap,int size){
+    int value=0,flag=0;
+    int i=0,j;
+    int total;
+    for(int i=0;i<size;i++){
+        v.push_back(a[i]);
+    }
+    while(i<v.size()){
+        flag=0;
+        j=i+1;
+        while(j<v.size()){
+            total=v[i]+v[j];
+            if(total<=cap){
+                value++;
+                v.erase(v.begin()+i);
+                v.erase(v.begin()+(j-1));
+                flag=1;
+                break;
+            }
+            else if(total>cap){
+                j++;
+            }
+        }
+        if(flag==0 && j==v.size()){
+            value++;
+            v.erase(v.begin()+i);
+        }
+    }
+    return value;
+}
